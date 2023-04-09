@@ -14,7 +14,7 @@ import es.antonborri.home_widget.HomeWidgetProvider
 class HomeScreenWidgetProvider: HomeWidgetProvider() {
 
     companion object {
-        const val COUNT_ID = "_count"
+        const val COUNT_ID = "_counter"
         const val DEFAULT_COUNT = -1
         const val UPDATE_ACTION = "UpdateCountButtonClicked"
     }
@@ -26,11 +26,11 @@ class HomeScreenWidgetProvider: HomeWidgetProvider() {
         widgetData: SharedPreferences
     ) {
         for (widgetId in appWidgetIds) {
-            updateWidget(context, appWidgetManager)
+            updateWidget(context, appWidgetManager, widgetId)
         }
     }
 
-    fun updateWidget(context: Context, appWidgetManager: AppWidgetManager) {
+    fun updateWidget(context: Context, appWidgetManager: AppWidgetManager, widgetId: Int) {
 
         // widgetのレイアウトに対しての処理を記述する
         val views = RemoteViews(context.packageName, R.layout.widget_layout).apply {
@@ -55,6 +55,8 @@ class HomeScreenWidgetProvider: HomeWidgetProvider() {
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
             setOnClickPendingIntent(R.id.bt_update, countPendingIntent)
         }
+
+        appWidgetManager.updateAppWidget(widgetId, views)
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
