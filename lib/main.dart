@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:home_widget/home_widget.dart';
 
+const String countId = '_counter';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
@@ -39,6 +41,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+
+    HomeWidget.widgetClicked.listen((Uri? uri) {
+      loadData();
+    });
+
+    loadData();
   }
 
   Future<void> loadData() async {
@@ -54,7 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> updateHomeWidget() async {
     await HomeWidget.saveWidgetData(countId, _counter);
-    await HomeWidget.updateWidget(androidName: 'HomeScreenWidgetProvider');
+    await HomeWidget.updateWidget(
+        name: 'HomeScreenWidgetProvider',
+        androidName: 'HomeScreenWidgetProvider');
     // iosのextensionを更新する場合は以下のように指定する
     // await HomeWidget.updateWidget(iOSName: 'HomeScreenWidgetProvider');
   }
