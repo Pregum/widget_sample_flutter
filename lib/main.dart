@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:home_widget/home_widget.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -11,11 +13,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Home widget sample',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Home widget sample'),
     );
   }
 }
@@ -31,11 +33,37 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  final String countId = '_counter';
+  final defaultVal = -1;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> loadData() async {
+    final val =
+        await HomeWidget.getWidgetData(countId, defaultValue: defaultVal);
+
+    setState(() {
+      _counter = val!;
+    });
+
+    updateHomeWidget();
+  }
+
+  Future<void> updateHomeWidget() async {
+    await HomeWidget.saveWidgetData(countId, _counter);
+    await HomeWidget.updateWidget(androidName: 'HomeScreenWidgetProvider');
+    // iosのextensionを更新する場合は以下のように指定する
+    // await HomeWidget.updateWidget(iOSName: 'HomeScreenWidgetProvider');
+  }
 
   void _incrementCounter() {
     setState(() {
       _counter++;
     });
+    updateHomeWidget();
   }
 
   @override
