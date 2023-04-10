@@ -1,6 +1,21 @@
 # my_widget_sample
 
-A new Flutter project.
+このプロジェクトでは、AndroidのHome Screen WidgetをFlutterで実装したサンプルアプリです。
+
+## 機能
+
+* カウントアップ
+  * アプリ から Home Screen Widgetへ値の更新
+  * Home Screen Widget から アプリへ値の更新
+
+## 備考
+
+iOSには未対応です。
+
+
+## プレビュー
+
+![image](./docs/preview_android.mp4 "image")
 
 ## Getting Started
 
