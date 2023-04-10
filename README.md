@@ -15,7 +15,7 @@ iOSには未対応です。
 
 ## プレビュー
 
-![image](./docs/preview_android.mp4 "image")
+![image](docs/preview.gif "image")
 
 ## Getting Started
 
